@@ -1,6 +1,25 @@
+// ============================================
+// FILE: QuizQuestion.tsx
+// ============================================
 import React from 'react';
 
-const QuizQuestion = ({ question, options, selectedAnswer, onSelect, questionNumber, totalQuestions }) => {
+interface QuizQuestionProps {
+    question: string;
+    options: string[];
+    selectedAnswer: number | null;
+    onSelect: (index: number) => void;
+    questionNumber: number;
+    totalQuestions: number;
+}
+
+const QuizQuestion: React.FC<QuizQuestionProps> = ({ 
+    question, 
+    options, 
+    selectedAnswer, 
+    onSelect, 
+    questionNumber, 
+    totalQuestions 
+}) => {
     return (
         <div>
             <div className="mb-6">
@@ -24,7 +43,7 @@ const QuizQuestion = ({ question, options, selectedAnswer, onSelect, questionNum
                 {question}
             </h4>
             <div className="space-y-3">
-                {options.map((option, index) => (
+                {options.map((option: string, index: number) => (
                     <button
                         key={index}
                         onClick={() => onSelect(index)}

@@ -1,7 +1,23 @@
 import React from 'react';
 import { Sparkles, Send, CheckCircle } from 'lucide-react';
 
-const AIAssistant = ({ topicTitle, question, response, onQuestionChange, onAsk, loading }) => {
+interface AIAssistantProps {
+    topicTitle: string;
+    question: string;
+    response: string;
+    onQuestionChange: (value: string) => void;
+    onAsk: () => void;
+    loading: boolean;
+}
+
+const AIAssistant: React.FC<AIAssistantProps> = ({ 
+    topicTitle, 
+    question, 
+    response, 
+    onQuestionChange, 
+    onAsk, 
+    loading 
+}) => {
     return (
         <div className="bg-card rounded-xl p-6 border border-border sticky top-24">
             <div className="flex items-center space-x-2 mb-4">
@@ -21,7 +37,7 @@ const AIAssistant = ({ topicTitle, question, response, onQuestionChange, onAsk, 
                     onChange={(e) => onQuestionChange(e.target.value)}
                     placeholder="Type your question..."
                     className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground resize-none text-sm"
-                    rows="4"
+                    rows={4}
                 />
                 <button
                     onClick={onAsk}

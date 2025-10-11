@@ -1,22 +1,47 @@
+// ============================================
+// FILE: QuizResults.tsx
+// ============================================
 import React from 'react';
 import { CheckCircle, X, RotateCcw, Save } from 'lucide-react';
 
-const QuizResults = ({ score, totalQuestions, quiz, userAnswers, onRetry, onSave }) => {
-    const getScoreColor = (score, total) => {
+interface QuizItem {
+    question: string;
+    options: string[];
+    correct: number;
+}
+
+interface QuizResultsProps {
+    score: number;
+    totalQuestions: number;
+    quiz: QuizItem[];
+    userAnswers: number[];
+    onRetry: () => void;
+    onSave: () => void;
+}
+
+const QuizResults: React.FC<QuizResultsProps> = ({ 
+    score, 
+    totalQuestions, 
+    quiz, 
+    userAnswers, 
+    onRetry, 
+    onSave 
+}) => {
+    const getScoreColor = (score: number, total: number): string => {
         const percentage = (score / total) * 100;
         if (percentage >= 80) return 'text-success';
         if (percentage >= 60) return 'text-warning';
         return 'text-error';
     };
 
-    const getScoreMessage = (score, total) => {
+    const getScoreMessage = (score: number, total: number): string => {
         const percentage = (score / total) * 100;
         if (percentage >= 80) return 'Excellent! Strong understanding of this topic.';
         if (percentage >= 60) return 'Good job! Review to strengthen knowledge.';
         return 'Keep learning! Review and try again.';
     };
 
-    const getScoreBgColor = (score, total) => {
+    const getScoreBgColor = (score: number, total: number): string => {
         const percentage = (score / total) * 100;
         if (percentage >= 80) return 'bg-success/10';
         if (percentage >= 60) return 'bg-warning/10';
@@ -44,13 +69,13 @@ const QuizResults = ({ score, totalQuestions, quiz, userAnswers, onRetry, onSave
 
             <div className="space-y-4 mb-6">
                 <h4 className="font-semibold text-foreground text-sm">Review Answers:</h4>
-                {quiz.map((question, qIndex) => (
+                {quiz.map((question: QuizItem, qIndex: number) => (
                     <div key={qIndex} className="p-4 bg-muted rounded-lg">
                         <p className="font-medium text-foreground mb-3 text-sm">
                             {qIndex + 1}. {question.question}
                         </p>
                         <div className="space-y-2">
-                            {question.options.map((option, oIndex) => (
+                            {question.options.map((option: string, oIndex: number) => (
                                 <div
                                     key={oIndex}
                                     className={`p-3 rounded-lg text-sm ${
